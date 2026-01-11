@@ -26,6 +26,7 @@
 - Docker Desktop（腳本會自動檢查並提示安裝）
 - 網路連線（用於下載 Docker 映像檔）
 - 自動支援 Intel 和 Apple Silicon (M1/M2/M3) 晶片
+- **重要！！**Mac版本需複製.env.example並直接貼上至.env。
 
 ## 安裝與使用
 
