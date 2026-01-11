@@ -140,18 +140,22 @@ services:
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
       - DB_POSTGRESDB_PORT=${POSTGRES_PORT:-5432}
+      - NODE_FUNCTION_ALLOW_BUILTIN=fs,path
       - DB_POSTGRESDB_DATABASE=${POSTGRES_DB:-n8n}
       - DB_POSTGRESDB_USER=${POSTGRES_USER:-n8n}
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD:-n8npass}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-adminpass}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       - N8N_RUNNERS_ENABLED=true
       - N8N_HOST=${N8N_HOST:-localhost}
       - N8N_PORT=${N8N_PORT:-5678}
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678}
       - GENERIC_TIMEZONE=Asia/Taipei
-      - TZ=Asia/Taipei
+      - TZ=Asia/Taipei      
+      # v2.0更新:以下為可存取的路徑
+      - N8N_RESTRICT_FILE_ACCESS_TO=/files;/backups;/download_data
+
     volumes:
       - n8n_data:/root/.n8n
     networks:
