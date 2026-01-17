@@ -29,11 +29,36 @@
 
 ## 安裝與使用
 
-### 前置
-複製.env.example並直接貼上至.env。
-```bash
-cp .env.example .env
+### 首次使用前：設定環境變數
+
+首次使用前，您需要設定以下必要的環境變數。建議在工作目錄中建立 `.env` 檔案：
+
+#### Windows 工作目錄：`%USERPROFILE%\n8n`
+#### Mac 工作目錄：`$HOME/n8n`
+
+在對應的工作目錄中建立 `.env` 檔案，內容如下：
+
+```env
+# PostgreSQL 資料庫密碼（必填）
+POSTGRES_PASSWORD=your_strong_database_password
+
+# n8n 加密金鑰（必填，建議至少 32 字元）
+N8N_ENCRYPTION_KEY=your_32_character_encryption_key_here
+
+# 可選：PostgreSQL 使用者名稱（預設：n8n）
+# POSTGRES_USER=n8n
+
+# 可選：PostgreSQL 資料庫名稱（預設：n8n）
+# POSTGRES_DB=n8n
+
+# 可選：PostgreSQL 連接埠（預設：5432）
+# POSTGRES_PORT=5432
+
+# 可選：n8n 連接埠（預設：5678）
+# N8N_PORT=5678
 ```
+
+> 💡 **提示**：Docker Compose 會自動讀取 `.env` 檔案中的環境變數。
 ### Windows
 下載並雙擊打開 `n8n.bat` 即可開始使用。
 
@@ -94,18 +119,19 @@ cp .env.example .env
   - Windows：`%USERPROFILE%\n8n`
   - Mac：`$HOME/n8n`
 - **n8n 服務**：`http://localhost:5678`
-- **PostgreSQL 資料庫**：`localhost:5432`
-- **預設帳號**：`admin` / `adminpass`
+- **PostgreSQL 資料庫**：`localhost:5432`（預設埠號）
+- **使用者管理**：首次啟動時需註冊 Owner 帳號
 - **時區**：`Asia/Taipei`
 
-> ⚠️ **安全提醒**：預設帳號密碼僅供本地開發使用，生產環境請務必修改！
+> 🔒 **安全提醒**：請務必設定強密碼的環境變數。
 
 ## 工作目錄結構
 
 ### Windows
 ```
 %USERPROFILE%\n8n\
-├── docker-compose.yml      # Docker Compose 配置檔
+├── .env                    # 環境變數設定檔（需自行建立）
+├── docker-compose.yml      # Docker Compose 配置檔（自動生成）
 └── backup_YYYYMMDD-HHMMSS\ # 備份資料夾
     ├── n8n_data.tar.gz
     └── n8n_postgres_data.tar.gz
@@ -114,11 +140,14 @@ cp .env.example .env
 ### Mac
 ```
 ~/n8n/
-├── docker-compose.yml      # Docker Compose 配置檔
+├── .env                    # 環境變數設定檔（需自行建立）
+├── docker-compose.yml      # Docker Compose 配置檔（自動生成）
 └── backup_YYYYMMDD-HHMMSS/ # 備份資料夾
     ├── n8n_data.tar.gz
     └── n8n_postgres_data.tar.gz
 ```
+
+> 📝 **注意**：`.env` 檔案包含敏感資訊，請勿提交到版本控制系統。建議將 `.env` 加入 `.gitignore`。
 
 ## 常見問題
 

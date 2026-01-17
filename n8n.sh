@@ -121,7 +121,7 @@ services:
       - "${POSTGRES_PORT:-5432}:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-n8n}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-n8npass}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB:-n8n}
     volumes:
       - n8n_postgres_data:/var/lib/postgresql/data
@@ -133,7 +133,7 @@ services:
     ports:
       - "${N8N_PORT:-5678}:5678"
     environment:
-      - N8N_ENCRYPTION_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
       - N8N_SECURE_COOKIE=false
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
@@ -144,9 +144,6 @@ services:
       - DB_POSTGRESDB_DATABASE=${POSTGRES_DB:-n8n}
       - DB_POSTGRESDB_USER=${POSTGRES_USER:-n8n}
       - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       - N8N_RUNNERS_ENABLED=true
       - N8N_HOST=${N8N_HOST:-localhost}
       - N8N_PORT=${N8N_PORT:-5678}
